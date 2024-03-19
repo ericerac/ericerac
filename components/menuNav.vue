@@ -1,10 +1,11 @@
 <template>
+    
     <div class="bloc_nav">
         <nav>
 	<RouterLink to="/">Home</RouterLink>
 	<RouterLink to="/">Blog</RouterLink>
 	<RouterLink to="/">Contact</RouterLink>
-	<RouterLink to="/">Login</RouterLink>
+	<RouterLink to="/login">Login</RouterLink>
 	<RouterLink to="/" v-if="user">Login</RouterLink>
 	<RouterLink to="/" v-if="user">Login</RouterLink>
 	<RouterLink to="/" v-if="user">Login</RouterLink>
