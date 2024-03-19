@@ -7,11 +7,6 @@
                 <span class="line"></span>
             </div>
         <div class="sidebar" v-if="openNavBar" @click="openNavBar = !openNavBar">
-            <!-- <div class="logo-details">
-                <i class="bx bxl-c-plus-plus icon"></i>
-                <div class="logo_name">CodingLab</div>
-                <i class="bx bx-menu" id="btn"></i>
-            </div> -->
             
             <ul class="nav-list">
                 
