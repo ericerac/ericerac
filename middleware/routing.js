@@ -10,4 +10,5 @@ export default defineNuxtRouteMiddleware((to, from) => {
     // }
     console.log("MIDDLEWARE FROM",from);
     console.log("MIDDLEWARE TO",to);
+    // let routePage = useState("routingTo",to)
   })

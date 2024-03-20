@@ -11,10 +11,16 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
+    "bcrypt": "^5.1.1",
+    "compressorjs": "^1.2.1",
+    "file-system": "^1.2.2",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.2.1",
+    "multer": "^1.4.5-lts.1",
     "nuxt": "^3.10.3",
     "pinia": "^2.1.7",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vue3-cookies": "^1.0.6"
   }
 }

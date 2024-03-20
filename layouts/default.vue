@@ -2,15 +2,35 @@
     <div>
         <div class="menuNav">
 
-            .<menuNav />
+            <menuNav :routPage="paging"/>
         </div>
-<slot></slot>
+<slot @namePage="currentPage"></slot>
 <footerA />
     </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 
+let paging = ref("")
+let nameRoute = useState('routingTo')
+
+let currentPage = ((p)=>{
+    console.log("EMIT VALUE NAME PAGE",p);
+paging.value = p
+})
+
+
+
+watchEffect(() => {
+
+if (nameRoute) {
+    console.log("WATCHER LOGIN ROUTE default",nameRoute);
+//   const rout = emit('namePage',params)
+
+} else {
+}
+});
 </script>
 
 <style lang="css" scoped>

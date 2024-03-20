@@ -6,6 +6,7 @@
 	<RouterLink to="/">Blog</RouterLink>
 	<RouterLink to="/">Contact</RouterLink>
 	<RouterLink to="/login">Login</RouterLink>
+	<RouterLink to="/login">{{ routerPage.routPage }}</RouterLink>
 	<RouterLink to="/" v-if="user">Login</RouterLink>
 	<RouterLink to="/" v-if="user">Login</RouterLink>
 	<RouterLink to="/" v-if="user">Login</RouterLink>
@@ -18,7 +19,7 @@
 <script setup>
 
 import { ref } from 'vue';
-
+let routerPage = defineProps(['routPage'])
 let user = ref(false)
 </script>
 

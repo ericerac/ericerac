@@ -11,11 +11,11 @@ export const usePhraseStore = defineStore('phraseStore', {
     },
     actions: {
         async getPhrase(p) {
-            console.log("GET PHRASE ACTION STORE",p);
+            // console.log("GET PHRASE ACTION STORE",p);
             const  responseData  = await $fetch(`/api/phrase?field=${p}`, {
                 method: 'get',
             })
-             console.log("RESPONSE STORE FROM API REQUEST",responseData);
+            //  console.log("RESPONSE STORE FROM API REQUEST",responseData);
            this.dataPhrase = responseData
            let data = handlerPhrase(responseData)
          

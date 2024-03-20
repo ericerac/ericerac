@@ -7,7 +7,7 @@ const handlerPhrase = ((p) => {
 let num = ""
     let PhraseNumber = ((max) => {
         let n = (Math.random() * max)-1;
-        console.log("MATH RANDOM",n);
+        // console.log("MATH RANDOM",n);
         if (n < 0) {
             n = n+1
         }
@@ -36,7 +36,7 @@ for (const [key, value] of Object.entries(p)) {
         auteur:phraseAuteur,
         unicPhrase:PhraseUnic
     }
-     console.log(" END HANDLER PHRASE FUNCTION DATA",dataHandler);
+    //  console.log(" END HANDLER PHRASE FUNCTION DATA",dataHandler);
     return dataHandler
 })
 export default handlerPhrase
