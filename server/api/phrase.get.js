@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
     //  .select(field) // select a specific field
     .then((phraseData) => {
       //   res.status(200).json(page.reverse());
-        console.log("RESPONSE GET BACK 1----->", phraseData);
+        // console.log("RESPONSE GET BACK 1----->", phraseData);
       return phraseData
     })
     .catch((error) =>{

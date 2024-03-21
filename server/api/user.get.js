@@ -31,11 +31,13 @@ export default defineEventHandler(async (event) => {
         }
     }).then(isEquals => {
         if (!isEquals.logged ){
+            
             ResponseUser = {
                 token:null,
                 userId:null,
                 user:false,
-                message:"Utilisateur inconnu"
+                message:"Utilisateur inconnu",
+                userLogged:false
             }
             return
         }
@@ -48,7 +50,8 @@ export default defineEventHandler(async (event) => {
                 }),
                 userId: user._id,
                 user: true,
-                message:"Bienvenu(e)"
+                message:"Bienvenu(e)",
+                userLogged:true
             }
             return
         }

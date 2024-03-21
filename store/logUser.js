@@ -7,15 +7,14 @@ export const postUserStore = defineStore('postUserStore', {
             userName: "",
             userEmail: "",
             userToken: "",
-            user:false,
-            loggingMessage:""
+            user:"",
+            userLogged:"",
+            loggingMessage : "",
         }
     },
     actions: {
-
         async userLogin(body) {
              console.log("BODY LOGIN USER STORE", body)
-
             let bodyData = {
                 email: body.email,
                 password: body.password,
@@ -23,8 +22,10 @@ export const postUserStore = defineStore('postUserStore', {
                         const { data } = await useFetch(`/api/user?email=${bodyData.email}&password=${bodyData.password} `, {})
                       console.log("DATA STORE GET USER",data);
                         if (!data.value.user ) {
+                            console.log("USER FALSE STORE");
                             this.user = false
                             this.loggingMessage = data.value.message
+                            this.userLogged = false                         
                         } else {
                             this.user = true
                             // console.log("STORE GET USER DATA 2",data.value.user);
@@ -33,7 +34,6 @@ export const postUserStore = defineStore('postUserStore', {
                             cookies.set('hy!edf',data.value.user)
                             this.loggingMessage = data.value.message
                         }
-
         }
     }
 })

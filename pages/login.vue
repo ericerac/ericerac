@@ -10,7 +10,9 @@
         <button class="btn" @click="login()">
             Enter
         </button>
-       {{ message }}
+    </div>
+    <div class="modal" v-if="modal">
+        <modalMessage  :success="successMessage" :message="message" />
     </div>
     </div>
 </template>
@@ -19,55 +21,24 @@
 import { ref } from 'vue';
 // const route = useRoute()
 
-// let email = ref("")
-// let password = ref("")
+
 
 // let params = route.fullPath.split("/")[1]
-
-// let emit = defineEmits(['namePage'])
-
-// definePageMeta({
-//   middleware: ["routing"]
-//   // or middleware: 'auth'
-// })
-
-// // WATCHER
-// watchEffect(() => {
-
-
-// if (params) {
-//     console.log("WATCHER LOGIN ROUTE",params);
-//    emit('namePage',params)
-
-// } else {
-// }
-// });
-
 
 
 import { watch } from "vue";
 import { postUserStore } from "../store/logUser";
+import { modelNames } from 'mongoose';
 const logStore = postUserStore()
 const  { userLogin }  = logStore
-// import { checkForm, validFirstName, validEmail, validPassword, validLastName } from "../utils/validForm";
 
-// import ModalMessage from "./ModalMessage.vue";
-
-
-
-
-
-
-// let login=ref(true)
-// let firstName = ref("")
 let password = ref("")
 let email = ref("")
 let message = ref("")
-// let messageNom = ref("")
-// let messagePrenom = ref("")
-// let messageEmail = ref("")
-// let inputEmailColor = ref("")
-// let messagePassword = ref("")
+let errorMessage = ref("")
+let successMessage = ref("")
+let modal = ref("")
+
 
 let valueMail = ref("")
 
@@ -79,28 +50,61 @@ let dataLogin = {
 }
 console.log("DATA TO LOGIN",dataLogin);
 const getUser = await userLogin(dataLogin)
-console.log("GET USER LOGIN PAGE",getUser);
+
 }
 // WATCHER
 watchEffect(() => {
 
-if (logStore.loggingMessage) {
-    message.value = logStore.loggingMessage
-    setTimeout(() => {
-        message.value = ""
-}, "2000");
+if (logStore.user == false || logStore.user == true ) {
+    console.log("USER LOG WATCHER");
+    if (logStore.user == false) {
+        console.log("LOGIN USER FALSE");
+        modal.value = true
+        errorMessage.value = true
+        message.value = logStore.loggingMessage
+
+        logStore.$patch({
+            user: "",
+            userLogged: "",
+        })
+        setTimeout(() => {
+            modal.value = false
+            message.value = ""   
+            password.value = ""
+            email.value = ""
+        }, "2000")
+    } else {
+        modal.value = true
+        successMessage.value = true
+        message.value = logStore.loggingMessage
+        setTimeout(() => {
+            modal.value = false
+            message.value = ""
+            navigateTo("/")
+        }, "2000");
+    }
 
 } 
 });
+
 </script>
 
 <style lang="css" scoped>
 
 .bloc_login{
-    display: flex;
-    width: 100vw;
-    height: 100vh;
+    position:relative;
+    display: flex;  
     align-items: center;
+    width:100vw;
+    height:100vh;
+}
+
+.modal{
+position: absolute;
+top:0;
+left:0;
+bottom:0;
+right: 0;
 }
 
 .bloc_input{
