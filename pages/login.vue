@@ -19,28 +19,31 @@
 
 <script setup>
 import { ref } from 'vue';
-// const route = useRoute()
-
-
-
-// let params = route.fullPath.split("/")[1]
-
-
 import { watch } from "vue";
 import { postUserStore } from "../store/logUser";
+import { usePageDataStore } from  "../store/dataNav"
 import { modelNames } from 'mongoose';
+
+const route = useRoute()
+let params = route.fullPath.split("/")[1]
+
+// let pageTo = useState("routePage" , () => params)
+
+console.log("PARAMS",params);
 const logStore = postUserStore()
 const  { userLogin }  = logStore
+const dataPageStore = usePageDataStore()
+const { pageName } =  dataPageStore 
+pageName(params)
 
 let password = ref("")
 let email = ref("")
 let message = ref("")
 let errorMessage = ref("")
 let successMessage = ref("")
-let modal = ref("")
+let modal = ref(false)
+let activePage = ref("")
 
-
-let valueMail = ref("")
 
 const login = async () => {
     
@@ -54,7 +57,9 @@ const getUser = await userLogin(dataLogin)
 }
 // WATCHER
 watchEffect(() => {
-
+if(logStore.user == null){
+    return
+}
 if (logStore.user == false || logStore.user == true ) {
     console.log("USER LOG WATCHER");
     if (logStore.user == false) {
@@ -62,7 +67,6 @@ if (logStore.user == false || logStore.user == true ) {
         modal.value = true
         errorMessage.value = true
         message.value = logStore.loggingMessage
-
         logStore.$patch({
             user: "",
             userLogged: "",
@@ -83,7 +87,6 @@ if (logStore.user == false || logStore.user == true ) {
             navigateTo("/")
         }, "2000");
     }
-
 } 
 });
 
@@ -96,7 +99,7 @@ if (logStore.user == false || logStore.user == true ) {
     display: flex;  
     align-items: center;
     width:100vw;
-    height:100vh;
+    height:auto;
 }
 
 .modal{

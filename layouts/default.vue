@@ -1,41 +1,40 @@
 <template>
-    <div>
+    <div class="bloc_default">
         <div class="menuNav">
 
-            <menuNav :routPage="paging"/>
+            <menuNav :routePage="paging"/>
         </div>
-<slot @namePage="currentPage"></slot>
-<footerA />
+<slot class="bloc_page"></slot>
+<div class="bloc_footer">
+
+    <footerA />
+</div>
     </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 
-let paging = ref("")
-let nameRoute = useState('routingTo')
-
-let currentPage = ((p)=>{
-    console.log("EMIT VALUE NAME PAGE",p);
-paging.value = p
-})
 
 
-
-watchEffect(() => {
-
-if (nameRoute) {
-    console.log("WATCHER LOGIN ROUTE default",nameRoute);
-//   const rout = emit('namePage',params)
-
-} else {
-}
-});
 </script>
 
 <style lang="css" scoped>
+.bloc_default{
+    display: flex;
+    flex-direction: column;
+justify-content: space-between;
+    min-height:100vh;
+    width:100vw;
+}
+.bloc_page{
 
+}
+.bloc_footer{
+
+}
 .menuNav{
+    
     animation: navAnim .5s ease-in-out 2.5s forwards;
     opacity: 0;
     

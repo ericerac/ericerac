@@ -26,6 +26,7 @@
     text-decoration: none;
     color: inherit;
     font-size: inherit;
+    cursor: pointer;
   }
   
   /* ... excepto los que se encuentran en párrafos */

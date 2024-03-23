@@ -24,18 +24,30 @@
 import { ref, nextTick } from 'vue'
 import { usePhraseStore } from "../store/phraseGet"
 import {storeToRefs} from "pinia"
-
+import { usePageDataStore } from  "../store/dataNav"
 const storePhrase = usePhraseStore()
 const { getPhrase } = storePhrase
 let dataPhrase = ref("")
 let loading = ref(true)
-
+const route = useRoute()
+let params = route.fullPath.split("/")[1]
+console.log("PARAMS INDEX PAGE",params);
 onMounted(async () => {
     await getPhrase()
     dataPhrase.value = storePhrase.onePhrase
     loading.value = false
-
 })
+
+
+const dataPageStore = usePageDataStore()
+const { pageName } =  dataPageStore 
+
+pageName(params)
+
+//  let routerPage = defineProps(['routPage'])
+let user = ref(false)
+
+
 
 
 </script>

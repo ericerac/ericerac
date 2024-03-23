@@ -2,13 +2,15 @@
     
     <div class="bloc_nav">
         <nav>
-	<RouterLink to="/">Home</RouterLink>
-	<RouterLink to="/">Blog</RouterLink>
-	<RouterLink to="/">Contact</RouterLink>
-	<RouterLink to="/login">Login</RouterLink>
-	<RouterLink to="/login">{{ routerPage.routPage }}</RouterLink>
+	<RouterLink to="/"  :class="[routePage=='/'? 'bg1' : ' ']">Home</RouterLink>
+	<RouterLink to="/blog" :class="[routePage=='blog'? 'bg2' : ' ']">Blog</RouterLink>
+	<RouterLink to="/contact" :class="[routePage=='contact'? 'bg3' : ' ']"> Contact</RouterLink>
+	<RouterLink v-if="!user" to="/login" :class="[routePage=='login'? 'bg4' : ' ']" >Login</RouterLink>
+	<RouterLink v-else :class="[routePage=='login'? 'bg4' : ' ']" >Logout</RouterLink>
+	
+	<!-- <RouterLink to="/login">{{ routerPage.routPage }}</RouterLink> -->
 	<RouterLink to="/" v-if="user">Login</RouterLink>
-	<RouterLink to="/" v-if="user">Login</RouterLink>
+	<RouterLink to="/" v-if="user">Login</RouterLink>=
 	<RouterLink to="/" v-if="user">Login</RouterLink>
 	
 	<div class="animation start-home"></div>
@@ -19,8 +21,25 @@
 <script setup>
 
 import { ref } from 'vue';
-let routerPage = defineProps(['routPage'])
+import { storeToRefs } from 'pinia';
+import { usePageDataStore } from  "../store/dataNav"
+
+const dataPageStore = usePageDataStore()
+
+let routePage =  ref("")
 let user = ref(false)
+
+ const logout= (()=>{
+console.log("LOGOUT FUNCTION");
+ })
+
+watchEffect(() => {
+
+if(dataPageStore.routePage ){
+console.log("NEW ROUTE");
+routePage.value = dataPageStore.routePage
+}
+});
 </script>
 
 <style lang="css" scoped>
@@ -31,6 +50,7 @@ let user = ref(false)
     top:10px;
     left:50%;
     transform: translate(-50%);
+	z-index:11
 }
 nav {
     display: flex;
@@ -88,8 +108,7 @@ nav .start-home, a:nth-child(1):hover~.animation {
 	width: 60px;
     height: 30px;
 	left: 20px;
-    top:10px;
-    
+    top:10px;   
 	background-color: #1abc9c;
 }
 nav .start-about, a:nth-child(2):hover~.animation {
@@ -112,7 +131,25 @@ nav .start-contact, a:nth-child(5):hover~.animation {
 	left: 470px;
 	background-color: #e67e22;
 }
-
+.bg1{
+	background-color: #1abc9c;
+}
+.bg2{
+	background-color: #e74c3c;
+}
+.bg3{
+	background-color: #3498db;
+}
+.bg4{
+	background-color: #9b59b6;
+	height: 30px;
+	line-height: 30px;
+	top:10px;   
+	border-radius: 8px;
+	
+	/* left: 120px; */
+	
+}
 
 @media screen and (min-width: 756px) {
     

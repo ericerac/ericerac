@@ -1,6 +1,8 @@
 <template>
     <div class="bloc_modal">
-        <div class="modal_content"  :class="[message.success ? bloc_modal_success : bloc_modal_error]">
+        <div class="modal_content" 
+      
+         >
             
             {{ message.message }} {{ message.success }}
         </div>
@@ -8,7 +10,11 @@
 </template>
 
 <script setup>
+
 let message = defineProps(['message','success'])
+
+
+//  :class="[message.success ? bloc_modal_success : bloc_modal_error]" 
 </script>
 
 <style lang="css" scoped>

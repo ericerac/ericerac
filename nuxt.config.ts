@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  
   devtools: { enabled: true },
   
   modules: [
@@ -23,6 +24,7 @@ export default defineNuxtConfig({
     mongodbUri:process.env.MONGO_URI,
     keyHash:process.env.SECRET_KEY_HASH
   },
+  
   router: {
     options: {
       strict: true,
