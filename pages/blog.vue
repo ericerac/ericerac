@@ -8,6 +8,12 @@
 
 <script setup>
 
+import { usePageDataStore } from  "../store/dataNav"
+const dataPageStore = usePageDataStore()
+const { pageName } =  dataPageStore 
+const route = useRoute()
+let params = route.fullPath.split("/")[1]
+pageName(params)
 </script>
 
 <style lang="css" scoped>
