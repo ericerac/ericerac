@@ -1,14 +1,14 @@
 <template>
     <div class="bloc_default">
         <div class="menuNav">
-
-            <menuNav :routePage="paging"/>
+            <menuNav :routePage="paging" />
         </div>
-<slot class="bloc_page"></slot>
-<div class="bloc_footer">
-
-    <footerA />
-</div>
+        <div class="slot">
+            <slot class="bloc_page"></slot>
+        </div>
+        <div class="bloc_footer">
+            <footerA />
+        </div>
     </div>
 </template>
 
@@ -20,35 +20,39 @@ import { ref } from 'vue'
 </script>
 
 <style lang="css" scoped>
-.bloc_default{
+.bloc_default {
     display: flex;
     flex-direction: column;
-justify-content: space-between;
-    min-height:100vh;
-    width:100vw;
+    justify-content: space-between;
+    min-height: 100vh;
+    width: 100vw;
+    gap:20px
 }
-.bloc_page{
 
+.bloc_page {
+   
 }
-.bloc_footer{
 
-}
-.menuNav{
-    
+.bloc_footer {}
+
+.menuNav {
+
     animation: navAnim .5s ease-in-out 2.5s forwards;
     opacity: 0;
-    
+
 }
+
 @keyframes navAnim {
-    from{
+    from {
         transform: translateY(-100px);
         filter: blur(10px);
-opacity: 0;
+        opacity: 0;
     }
-    to{
+
+    to {
         transform: translateY(0px);
         filter: blur(0px);
-opacity: 1;
+        opacity: 1;
     }
 }
 </style>

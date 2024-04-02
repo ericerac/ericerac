@@ -1,11 +1,25 @@
 <template>
   <div class="bloc">
    
-    <NuxtLayout>
+    <NuxtLayout :dark="dark">
       <NuxtPage />
     </NuxtLayout>
+    
   </div>
 </template>
+<script setup>
+
+let dark = useState('dark',() => false)
+
+const dataConnect = await useFetch(`/api/data`)
+  .then((res) => {
+      console.log ("DARK--->",res.data.value)
+      dark.value = res.data.value
+    // getTheme(res.data.value)
+    
+  })
+
+</script>
 <style >
 .html, body{
   margin:0;
