@@ -1,24 +1,23 @@
 <template>
     <div class="bloc_total_blog">
-        <themeSelect />
-        <postCard  :posted="post"  v-if="post"/>
-     
-        <!-- <postCard  v-for=" { p, index } in post" :key="index" :title="p" /> -->
        
-<!-- <h1>
-    Bientôt en ligne
-</h1> -->
+            <loader v-if="load"/>
+       
+        <themeSelect :listTheme="listTheme" :themeActive="themeActive" @openTheme="themeChoise" v-if="!load" />
+        <postCard :posted="post" v-if="post && !load" />
+
     </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import { usePageDataStore } from  "../store/dataNav"
+import { usePageDataStore } from "../store/dataNav"
 import themePost from '../composables/theme'
 import { getPageUseStore } from "../store/postGet"
+import filterByTheme from '../utils/filterByTheme'
 
 const dataPageStore = usePageDataStore()
-const { pageName } =  dataPageStore 
+const { pageName } = dataPageStore
 const route = useRoute()
 let params = route.fullPath.split("/")[1]
 pageName(params)
@@ -33,46 +32,62 @@ let postDataPage =
     l: "fr"
 }
 
-
 const pst = async () => {
-    await dataPage(postDataPage)
-    post.value = pageStore.dataP.reverse()
-    console.log("POST VALUE POST PAGE",post.value);
-    listTheme.value = themePost(post.value)
+    await dataPage(postDataPage) 
+        post.value = pageStore.dataP.reverse()
+        listTheme.value = themePost(post.value)
+  
 }
 pst()
 
+let themeActive = ref("")
+const themeChoise = ((t) => {
+    // console.log("EMIT CHOISE THEME--->", t);
+    post.value = filterByTheme(t.toLowerCase())
+    themeActive.value = t
 
+})
+let load = ref(false)
+watchEffect(() => {
+    if (pageStore.loading) {
+        console.log("WATCHER LOADER BLOG PAGE", pageStore.loading);
+        load.value = true
+    }
+    else {
+        load.value = false
+    }
+});
 </script>
 
 <style lang="css" scoped>
-
-.bloc_total_blog{
+.bloc_total_blog {
     display: flex;
     flex-direction: column;
     text-align: center;
     align-items: center;
+    margin: auto;
 }
 
-/* h1{
-    font-size: calc(25px + 3vw);
-    color:white;
-    width:auto;
-    margin:auto;
-    animation: intro 2s ease-in  forwards;
-    opacity: 0;
+
+@media screen and (min-width:992px) {}
+
+@media screen and (min-width:1080px) {}
+
+@media screen and (min-width:1220px) {
+    .bloc_total_blog {
+        max-width: 1150px;
+    }
 }
 
-@keyframes intro {
-    from{
-        opacity: 0;
-        transform: rotate(0deg) translate(50%)
+@media screen and (min-width:1440px) {
+    .bloc_total_blog {
+        max-width: 1400px;
     }
-    to{ 
-        opacity: 1;
-        transform: rotate(360deg) translate(0%)
-    }
+}
 
-   
-} */
+@media screen and (min-width:1680px) {
+    .bloc_total_blog {
+        max-width: 1600px;
+    }
+}
 </style>

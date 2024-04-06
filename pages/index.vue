@@ -24,7 +24,8 @@
 import { ref, nextTick } from 'vue'
 import { usePhraseStore } from "../store/phraseGet"
 import {storeToRefs} from "pinia"
-import { usePageDataStore } from  "../store/dataNav"
+import { usePageDataStore } from  "../store/dataNav";
+
 
 const storePhrase = usePhraseStore()
 const { getPhrase } = storePhrase
@@ -56,7 +57,8 @@ let user = ref(false)
 </script>
 
 <style lang="css" scoped>
-
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Foldit:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Cinzel:wght@400..900&family=Foldit:wght@500&display=swap');
 .bloc_master{
     display: flex;
     flex-direction: column;
@@ -80,10 +82,20 @@ let user = ref(false)
     margin-inline:auto;
     animation: anim .3s ease-out 2.4s forwards;
     opacity: 0;
+font-size: calc(20px + .5vw);
+    font-family: "Caveat", cursive;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
 }
 .txt{
     opacity: 0;
     font-size: calc(20px + 3vw);
+
+    font-family: "Cinzel", serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
 }
 .item1{
     animation: anim 1s ease-in-out 0s  forwards;

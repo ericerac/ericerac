@@ -3,7 +3,7 @@ import Post from "../models/post"
 
 export default defineEventHandler(async (event) => {
   let post = getQuery(event)
-   console.log("PAGE:GET:API",post);
+  //  console.log("PAGE:GET:API",post);
 
 if (post.id) {
   // console.log("POST ID SERVER",post.id);
@@ -14,7 +14,7 @@ if (post.id) {
     }) //.select(field) // select a specific field
     .then((postData) => {
      
-       console.log("RESPONSE GET BACK 1----->", postData);
+      //  console.log("RESPONSE GET BACK 1----->", postData);
       return postData
     })
     .catch((error) =>

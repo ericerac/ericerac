@@ -1,0 +1,6 @@
+#master{
+    --hue-color: 230;
+    --textColor :hsl(var(--hue-color), 8%, 75%);;
+    --textColor2 :hsl(var(--hue-color), 8%, 85%);;
+    --textColor3 :hsl(var(--hue-color), 8%, 95%);;
+}

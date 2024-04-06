@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
         sunset: data.currentConditions.sunsetEpoch,
         time: data.currentConditions.datetimeEpoch
     }
-console.log("DATA TIME",dataTime);
+// console.log("DATA TIME",dataTime);
     if (dataTime.time >= dataTime.sunrise && dataTime.time <= dataTime.sunset) {
     //    dark.value = false
         return false //if DAY

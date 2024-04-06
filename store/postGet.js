@@ -15,14 +15,16 @@ export const getPageUseStore = defineStore('getPageStore', {
   
   actions: {
     async dataPage(d) {
-        console.log("PAYLOAD STORE POST GET",d);
+        // console.log("PAYLOAD STORE POST GET",d);
       this.loading = true
       const { data } = await useFetch(`/api/post?name=${d.d}&lang=${d.l}`); 
       if (data.value) {
-         console.log("DATA VALUE",data.value);
-         this.postTheme = themePost(data.value)
-        this.loading = false
-        this.dataP = data.value;
+        //  console.log("DATA VALUE",data.value);
+       
+           this.postTheme = themePost(data.value)
+           this.dataP = data.value;      
+           this.loading = false
+       
       }
     },
     async dataFieldPage(d) {

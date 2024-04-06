@@ -12,7 +12,6 @@ export default defineEventHandler(async (event) => {
 
     let ResponseUser = "";
 
-
     await admin.findOne({
         email: data.email
     }).lean().then(async function (user) {
@@ -30,8 +29,7 @@ export default defineEventHandler(async (event) => {
             }
         }
     }).then(isEquals => {
-        if (!isEquals.logged ){
-            
+        if (!isEquals.logged ){         
             ResponseUser = {
                 token:null,
                 userId:null,
@@ -55,8 +53,7 @@ export default defineEventHandler(async (event) => {
             }
             return
         }
-        // console.log("USER FALSE");
-        // return false
+
     }).catch(error => {
         throw error;
     })

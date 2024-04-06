@@ -4,6 +4,7 @@
 <h1>
     Pour nous contacter
 </h1>
+<loader />
 </div>
 <div class="main_contact">
 <a href="http://wistitiweb.com" target="_blank" >Site:

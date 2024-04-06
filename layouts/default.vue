@@ -29,17 +29,11 @@ import { ref } from 'vue'
     gap:20px
 }
 
-.bloc_page {
-   
-}
-
-.bloc_footer {}
-
 .menuNav {
 
     animation: navAnim .5s ease-in-out 2.5s forwards;
     opacity: 0;
-
+    z-index:111;
 }
 
 @keyframes navAnim {

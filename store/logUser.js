@@ -7,7 +7,7 @@ export const postUserStore = defineStore('postUserStore', {
             userName: "",
             userEmail: "",
             userToken: "",
-            user:null,
+            user:false,
             userLogged:"",
             loggingMessage : "",
         }
