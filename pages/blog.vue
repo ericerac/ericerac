@@ -42,7 +42,7 @@ pst()
 
 let themeActive = ref("")
 const themeChoise = ((t) => {
-    // console.log("EMIT CHOISE THEME--->", t);
+     console.log("EMIT CHOISE THEME--->", t.toLowerCase());
     post.value = filterByTheme(t.toLowerCase())
     themeActive.value = t
 
@@ -50,7 +50,7 @@ const themeChoise = ((t) => {
 let load = ref(false)
 watchEffect(() => {
     if (pageStore.loading) {
-        console.log("WATCHER LOADER BLOG PAGE", pageStore.loading);
+        // console.log("WATCHER LOADER BLOG PAGE", pageStore.loading);
         load.value = true
     }
     else {

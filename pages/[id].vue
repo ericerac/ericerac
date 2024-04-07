@@ -22,25 +22,25 @@
                 <h3>{{ postSelected[0].subTitle_1 }}</h3>
                 <p>{{ br(postSelected[0].p_1) }}</p>
             </section>
-            <section class="paraf">
+            <section class="paraf" v-if="postSelected[0].p_2">
 
                 <h3>{{ postSelected[0].title_2 }}</h3>
                 <h3>{{ postSelected[0].subTitle_2 }}</h3>
                 <p>{{ postSelected[0].p_2 }}</p>
             </section>
-            <section class="paraf">
+            <section class="paraf" v-if="postSelected[0].p_3">
 
                 <h3>{{ postSelected[0].title_4 }}</h3>
                 <h3>{{ postSelected[0].subTitle_4 }}</h3>
                 <p>{{ postSelected[0].p_4 }}</p>
             </section>
-            <section class="paraf">
+            <section class="paraf" v-if="postSelected[0].p_4">
 
                 <h3>{{ postSelected[0].title_4 }}</h3>
                 <h3>{{ postSelected[0].subTitle_4 }}</h3>
                 <p>{{ postSelected[0].p_4 }}</p>
             </section>
-            <section class="paraf">
+            <section class="paraf" v-if="postSelected[0].p_5">
 
                 <h3>{{ postSelected[0].title_5 }}</h3>
                 <h3>{{ postSelected[0].subTitle_5 }}</h3>
@@ -54,6 +54,7 @@
 import { watch, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { getPageUseStore } from "../store/postGet"
+import {closeTimeOut , openedPost} from '../utils/openedPost'
 const pageStore = getPageUseStore()
 const { dataPostSelected } = pageStore
 
@@ -66,7 +67,10 @@ let dataPost = ref("")
 dataPost.value = await dataPostSelected(id)
 let postSelected = ref(pageStore.postSelect)
 
-const closePostId = () => navigateTo("/blog")
+const closePostId = (() => { 
+    navigateTo("/blog")
+    closeTimeOut();
+})
 
 const br = ((p)=>{
    

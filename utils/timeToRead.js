@@ -1,5 +1,5 @@
 export  const timeToRead =  (post)=>{
-
+// console.log("PAYLOAD TIME TO READ",post);
   let p1 = post.p_1 ? post.p_1 : "" 
   let p2 = post.p_2 ? post.p_2 : "" 
   let p3 = post.p_3 ? post.p_3 : "" 

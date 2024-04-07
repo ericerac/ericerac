@@ -29,7 +29,7 @@ let posted = defineProps(['posted'])
 
 onMounted(()=>{
     let target = document.querySelectorAll("#bloc_to_display")
-    displayCard(target)
+    //  displayCard(target)
     // console.log("TARGET ON PAGE",target);
 })
 
@@ -79,7 +79,12 @@ flex-direction: row;
     height: 150px;
     position: relative;
     margin: 15px auto;
+    /* opacity: 0; */  /*si display card on */
     opacity: 0;
+    animation: fadeOn linear forwards;
+    animation-timeline: view(90vh 0px);
+    /* animation-range:contain; */
+    /* animation-range-start: 300px; */
 }
 
 .bloc_img {

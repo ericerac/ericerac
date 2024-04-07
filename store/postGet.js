@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import themePost from "../composables/theme";
-
+import { openedPost } from '../utils/openedPost'
 export const getPageUseStore = defineStore('getPageStore', {
   
   state: () => {
@@ -36,9 +36,10 @@ export const getPageUseStore = defineStore('getPageStore', {
       }
     },
     async dataPostSelected(d) {
-       console.log("STORE DATAPOST SELECTED---->",d);
+      //  console.log("STORE DATAPOST SELECTED---->",d);
       const { data } = await useFetch(`/api/post?id=${d}`); 
       if (data.value) {
+        openedPost(d)
         // console.log("DATA VALUE",data.value);
         this.postSelect = data.value;
       }

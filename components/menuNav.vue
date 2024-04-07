@@ -11,8 +11,8 @@
 			<RouterLink @click="openNav = false" to="/login" :class="[routePage == 'login' ? 'active' : ' ']">Logout
 			</RouterLink>
 			<RouterLink @click="openNav = false"  to="/postCreate" >Create</RouterLink>
-			<!-- <RouterLink @click="openNav = false" to="/" v-if="user">Login</RouterLink>
-			<RouterLink @click="openNav = false" to="/" v-if="user">Logout</RouterLink> -->
+			<RouterLink @click="openNav = false" to="/adminBoard" >Admin</RouterLink>
+			<RouterLink @click="openNav = false" to="/" >Logout</RouterLink>
 
 			<div class="animation start-home"></div>
 		</nav>
