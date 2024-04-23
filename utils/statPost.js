@@ -55,7 +55,7 @@ export const statPost = ((p)=>{
       }
     }
     
-          // console.log("POST BY THEME",PostByTheme);
+    // console.log("POST BY THEME",PostByTheme);
     // *_*_*_*_*_*_*__ END COUNT POST BY THEME *_*_*_*_*_*_*_*_*_//
     
     // *************    TEST  ************* //
@@ -72,16 +72,7 @@ export const statPost = ((p)=>{
       counter.add(key[index].postOpened)
     }
     } 
-      console.log("COUNTER LOOP", PostByTheme);
     
-    // for (const i of counter) {
-    //   console.log("TYPE OF I",typeof i);
-    
-    //   if (typeof i === 'number') {
-    //     let n = i
-    //     console.log("NUMBER ONLY",n);
-    //   }
-    // }
     
     // *************  END  TEST  ************* //
     

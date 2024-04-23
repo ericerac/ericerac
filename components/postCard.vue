@@ -14,7 +14,7 @@
 
                     <span class="open_Article" @click="openPost(p._id)">Lecture <em>{{ read(p._id) }}</em></span>
                 </div>
-
+<span v-if="user" class="btnUser" @click="$emit('delete',p._id)">Delete</span>
             </section>
         </main>
         <!-- <button @click="scrollTop">To up</button> -->
@@ -25,7 +25,8 @@
 import { timeToRead } from "../utils/timeToRead"
 import Filter from '../utils/filterId';
 import { displayCard } from '../utils/observer'
-let posted = defineProps(['posted'])
+
+let posted = defineProps(['posted','user'])
 
 onMounted(()=>{
     let target = document.querySelectorAll("#bloc_to_display")
@@ -119,7 +120,10 @@ flex-direction: row;
     background-color: rgba(0, 0, 0, .3);
     color: white;
     padding: 10px;
-    gap: 10px
+    gap: 10px;
+    /* opacity: 0;
+    animation-timeline: view(90vh 0px);
+    animation: fadeOnTitle .3s ease-in forwards; */
 }
 
 .bloc_text h1 {
@@ -139,7 +143,9 @@ flex-direction: row;
 }
 
 @media screen and (min-width:760px) {
-
+    .bloc_text {
+        animation: none;
+    }
 }
 
 @media screen and (min-width:760px) {
@@ -169,10 +175,10 @@ flex-direction: row;
     height: 50px;
     display: block;
     align-items: center;
-    flex-direction: column;
+    /* flex-direction: column; */
     background-color: rgba(0, 0, 0, .3);
     color: white;
-   
+  
 }
 }
 @media screen and (min-width:992px) {
@@ -193,5 +199,28 @@ transform: translateY(50px);
         opacity:1;
 transform: translateY(0px);
     }
+}
+@keyframes fadeOnTitle {
+    from{
+opacity:0;
+transform: translate(-10%,-10%);
+    }
+    to{
+        opacity:1;
+transform: translate(-50%,50%);
+    }
+}
+
+/* USER CLASS*/ 
+.btnUser{
+    position: absolute;
+    width:max-content;
+    padding-inline: 10px;
+    /* inset:5px  80% 80%; */
+    background-color: rgba(0, 8, 5, .5);
+    top:0;
+    right: 0;
+    color:white;
+    cursor: pointer;
 }
 </style>

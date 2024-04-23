@@ -77,10 +77,10 @@ let user = ref(false)
 .phrase{
     display:flex;
     flex-direction: column;
-    color:white;
+    color:rgb(240, 240, 240);
     width:60%;
     margin-inline:auto;
-    animation: anim .3s ease-out 2.4s forwards;
+    animation: animPhrase .3s ease-out 2.4s forwards;
     opacity: 0;
 font-size: calc(20px + .5vw);
     font-family: "Caveat", cursive;
@@ -129,12 +129,29 @@ font-size: calc(20px + .5vw);
 }
 @keyframes anim {
     from {
-   
+   transform: translateY(-20px);
    opacity:0
   }
 
   to {
-   
+    transform: translateY(0px);
+    opacity:1
+  }
+}
+@keyframes animPhrase {
+    0%{
+   filter:blur(2px);
+   transform: scale(0);
+   opacity:0
+  }
+    70%{
+        filter:blur(4px);
+        transform: scale(1.3);
+  }
+
+  100% {
+    filter:blur(0px);
+    transform: scale(1);
     opacity:1
   }
 }

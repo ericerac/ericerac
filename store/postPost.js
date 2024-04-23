@@ -10,11 +10,28 @@ form_data :null
 },
 actions:{
     async createPost(bodyFormData){
+      let token = useCookie('token')
+       let userId = useCookie('2kihuf7')
+
+       console.log("STORE CREATE POST TOKEN VALUE", token.value);
+      //  console.log("STORE CREATE POST USERID VALUE", userId.value);
+      if (token.value == undefined) {
+        console.log("TOKEN OR USER NOT COOKIES");
+        return navigateTo("/login")
+      }
+      let accessToken = token.value
 // console.log("BODY RECEIVE STORE POST PAGE-->",bodyFormData.entries());
         try {
                 const  data = await $fetch('/api/post',{
                 method:'post',
-                body:bodyFormData
+              //   body:{
+              //   bodyForm:bodyFormData,
+              //   id:userId
+              // },
+               body:bodyFormData,
+                headers: {
+                  Authorization: `Bearer ${accessToken}`
+                }
             })
             .then((res)=>{
 console.log("RES REQUEST PAGEPOST STORE",res);

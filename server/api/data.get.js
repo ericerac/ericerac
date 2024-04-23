@@ -14,9 +14,20 @@ export default defineEventHandler(async (event) => {
 
     // console.log("RETURN IP", Ip);
     const local = await $fetch(`https://api.bigdatacloud.net/data/ip-geolocation?ip=${Ip}&localityLanguage=en&key=${GeoKey}`)
-
+// console.log("LOCAL DATA",local);
     const v = await local.location.city
+    const IpLocal = local.ip
+    const country = local.country.name
+    const networkService = local.network.organisation
+    const regex = new RegExp('Public');
+    let network =""
+    if (regex.test(networkService)) {
+         network = "Public"
+    }
+
+    // console.log("IP LOCAL",IpLocal,"COUNTRY",country,"NETWORK",network);
     // console.log("CITY", v);
+
     let data = await $fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${v}?unitGroup=metric&key=${WeatherKey}`)
 
     let dataTime = {
@@ -24,12 +35,12 @@ export default defineEventHandler(async (event) => {
         sunset: data.currentConditions.sunsetEpoch,
         time: data.currentConditions.datetimeEpoch
     }
-// console.log("DATA TIME",dataTime);
+
     if (dataTime.time >= dataTime.sunrise && dataTime.time <= dataTime.sunset) {
-    //    dark.value = false
+ 
         return false //if DAY
     } else {
-        // dark.value = true
+
         return true // if NIGHT
     }
 })

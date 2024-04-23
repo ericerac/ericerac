@@ -8,8 +8,7 @@
 			<RouterLink @click="openNav = false" to="/contact" :class="[routePage == 'contact' ? 'active' : ' ']"> Contact
 			</RouterLink>
 			<RouterLink @click="openNav = false"  to="/login" :class="[routePage == 'login' ? 'active' : ' ']">Login</RouterLink>
-			<RouterLink @click="openNav = false" to="/login" :class="[routePage == 'login' ? 'active' : ' ']">Logout
-			</RouterLink>
+			
 			<RouterLink @click="openNav = false"  to="/postCreate" >Create</RouterLink>
 			<RouterLink @click="openNav = false" to="/adminBoard" >Admin</RouterLink>
 			<RouterLink @click="openNav = false" to="/" >Logout</RouterLink>

@@ -4,7 +4,7 @@
             <loader v-if="load"/>
        
         <themeSelect :listTheme="listTheme" :themeActive="themeActive" @openTheme="themeChoise" v-if="!load" />
-        <postCard :posted="post" v-if="post && !load" />
+        <postCard v-if="post && !load" :posted="post" :user="user" @delete="deleteToPost"/>
 
     </div>
 </template>
@@ -14,14 +14,17 @@ import { ref } from "vue";
 import { usePageDataStore } from "../store/dataNav"
 import themePost from '../composables/theme'
 import { getPageUseStore } from "../store/postGet"
+import { useDelPage } from "../store/postDelete"
 import filterByTheme from '../utils/filterByTheme'
 
+const delStore = useDelPage()
+const { deletePost } = delStore
 const dataPageStore = usePageDataStore()
 const { pageName } = dataPageStore
 const route = useRoute()
 let params = route.fullPath.split("/")[1]
 pageName(params)
-
+let user = ref(true)
 const pageStore = getPageUseStore()
 const { dataPage, dataPostSelected } = pageStore
 let post = ref("")
@@ -36,7 +39,7 @@ const pst = async () => {
     await dataPage(postDataPage) 
         post.value = pageStore.dataP.reverse()
         listTheme.value = themePost(post.value)
-  
+        console.log("POST",post.value);
 }
 pst()
 
@@ -45,7 +48,10 @@ const themeChoise = ((t) => {
      console.log("EMIT CHOISE THEME--->", t.toLowerCase());
     post.value = filterByTheme(t.toLowerCase())
     themeActive.value = t
-
+})
+const deleteToPost = (async(id)=>{
+console.log("ID TO DELETE BLOG PAGE FUNCTION",id);
+await deletePost(id)
 })
 let load = ref(false)
 watchEffect(() => {

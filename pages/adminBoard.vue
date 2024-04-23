@@ -13,7 +13,7 @@
                   </button><button v-else class="btnUp btnOpen btnChoise txtDay"
                     @click="openFunction('downDate')">&#8681;</button>
                 </th>
-                <th class="txtDay">Date Mise à jour</th>
+                <!-- <th class="txtDay">Date Mise à jour</th> -->
                 <th class="optionBtn txtDay">Ouvert
                   <button v-if="!openUp" class="btnUp btnOpen btnChoise txtDay" @click="openFunction('upOpen')">&#8679;
                   </button><button v-else class="btnUp btnOpen btnChoise txtDay"
@@ -35,10 +35,10 @@
                 </td>
                 <!-- <td class="cp" @click="postSelected(item._id)">{{ item._id }}</td> -->
                 <td :class="[dark ? 'txtDark' : 'txtDay']" class="text">{{ datePosted(item.createdAt) }}</td>
-                <td v-if='datePosted(item.createdAt) != datePosted(item.updatedAt)' class="text" :class="[dark ? 'txtDark' : 'txtDay']">
+                <!-- <td v-if='datePosted(item.createdAt) != datePosted(item.updatedAt)' class="text" :class="[dark ? 'txtDark' : 'txtDay']">
                   {{ datePosted(item.updatedAt) }}</td>
-                <td v-else class="text">
-                  -</td>
+                <td v-else class="text"> 
+                  -</td>-->
                 <td class="text" :class="[dark ? 'txtDark' : 'txtDay']">{{ item.postOpened }}</td>
                 <td class="text" :class="[dark ? 'txtDark' : 'txtDay']">{{ item.postRead }}</td>
                 <td class="columnVisteur text" :class="[dark ? 'txtDark' : 'txtDay']">{{ item.theme }}</td>
@@ -101,11 +101,11 @@
   import { handPost } from "../utils/handlePost"
   import { statPost } from "../utils/statPost"
   
-//   definePageMeta({
-//     middleware:"auth"
-//   })
+  definePageMeta({
+    middleware:"auth"
+  })
   const classFunction = ((item)=>{
-    console.log("CLASS FUNCTION PAYLOAD",item);
+    // console.log("CLASS FUNCTION PAYLOAD",item);
 if (item.postOpened > 0 && item.postRead == 0) {
     return "red"
 }

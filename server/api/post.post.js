@@ -2,12 +2,37 @@ import Post from "../models/post.ts";
  import sharp from 'sharp ';
 import fs from "fs"
 import multer from "multer"
+import  jwt from 'jsonwebtoken';
 
+const config = useRuntimeConfig()
 
 export default defineEventHandler(async (event) => {
-  // const authorization = getHeaders(event)
-  // console.log("AUTH HEADERS",authorization.authorization.split("Bearer")[1]);
-console.log("API POST SERVER");
+
+  const userId = process.env.USER_ID
+    let authorization = getHeaders(event)
+   
+    let token = authorization.authorization.split("Bearer")[1]
+
+ console.log("API POST SERVER id",userId);
+
+//  try {
+
+// const token = authorization.authorization.split("Bearer")[1]; // récupère le token dans le header
+// console.log("USER ID JWT",token);
+// const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // décrypte le token
+// console.log("USER ID JWT2",decodedToken);
+// const userIdJwt = decodedToken.userId; // récupère l'id du token
+// if (userId !== userIdJwt) { // compare l'id du token avec l'id utilisateur
+//   return {
+//     message:"erreur Token invalide"
+//   }
+// } 
+// } catch {
+// return{
+//     message:"erreur jwt verify"
+// }
+// }
+
   const MIME_TYPES = {
     "image/jpg": "jpg",
     "image/jpeg": "jpg",
@@ -16,7 +41,11 @@ console.log("API POST SERVER");
     "image/webp": "webp",
   };
   // -------------------EXTRACT FILE FROM FORMDATA---------------------------//
+  
+
   const formData = await readMultipartFormData(event)
+
+
   let file = "";
     // console.log("FORM_DATA", formData);
   file = formData.find(x => x.name == "file");
@@ -35,7 +64,7 @@ if (file) {
   fileName = fileName.split(".")[0];
   const extension = MIME_TYPES[file.type];
   fileName = (fileName + Date.now() + "." + extension)
-  //  console.log("File DATA", file);
+  
   // +++ END FILE NAME CREATION +++//
   // ------------- CREATE PATH WHERE IS THE FILE IS STORED---------------------------------//
    NameFile = '_nuxt/assets/img/'+fileName

@@ -268,6 +268,13 @@
   })
   
   const createPost = async () => {
+    let token = useCookie('token')
+      console.log("STORE CREATE POST TOKEN VALUE", token.value);
+      if (token.value == undefined) {
+        console.log("STORE CREATE POST TOKEN VALUE", token.value);
+        return navigateTo("/login")
+      }
+      let accessToken = token.value
     const formData = new FormData()
     if (fileSelected) {
       formData.append('file', fileSelected, fileName)
@@ -277,7 +284,10 @@
     }
     await useFetch('/api/post', {
       method: 'POST',
-      body: formData
+      body: formData,
+      headers: {
+                  Authorization: `Bearer ${accessToken}`
+                }
     }).then((res)=>{
   if (res) {
     console.log("RESPONSE TO CEATE POST",res.status);

@@ -1,6 +1,5 @@
 <template>
     <div id="master" class="bloc_postSelected" @click="closePostId()">
-        <!-- <h1 style="color: aliceblue;">{{postSelected.title_P}}</h1> -->
         <header class="header">
             <div class="bloc_img">
                 <img :src="postSelected[0].imageUrl" alt="">
@@ -9,44 +8,37 @@
         </header>
         <main class="main">
             <section class="title">
-                <!-- <h1>
-   {{ postSelected[0].title_P}}
-</h1> -->
                 <h2>
                     {{ postSelected[0].subTitle_P }}
                 </h2>
             </section>
             <section class="paraf">
-
                 <h3>{{ postSelected[0].title_1 }}</h3>
                 <h3>{{ postSelected[0].subTitle_1 }}</h3>
                 <p>{{ br(postSelected[0].p_1) }}</p>
             </section>
             <section class="paraf" v-if="postSelected[0].p_2">
-
                 <h3>{{ postSelected[0].title_2 }}</h3>
                 <h3>{{ postSelected[0].subTitle_2 }}</h3>
                 <p>{{ postSelected[0].p_2 }}</p>
             </section>
             <section class="paraf" v-if="postSelected[0].p_3">
-
                 <h3>{{ postSelected[0].title_4 }}</h3>
                 <h3>{{ postSelected[0].subTitle_4 }}</h3>
                 <p>{{ postSelected[0].p_4 }}</p>
             </section>
             <section class="paraf" v-if="postSelected[0].p_4">
-
                 <h3>{{ postSelected[0].title_4 }}</h3>
                 <h3>{{ postSelected[0].subTitle_4 }}</h3>
                 <p>{{ postSelected[0].p_4 }}</p>
             </section>
             <section class="paraf" v-if="postSelected[0].p_5">
-
                 <h3>{{ postSelected[0].title_5 }}</h3>
                 <h3>{{ postSelected[0].subTitle_5 }}</h3>
                 <p>{{ postSelected[0].p_5 }}</p>
             </section>
         </main>
+        <loader v-if="load"/>
     </div>
 </template>
 
@@ -55,16 +47,19 @@ import { watch, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { getPageUseStore } from "../store/postGet"
 import {closeTimeOut , openedPost} from '../utils/openedPost'
+
 const pageStore = getPageUseStore()
 const { dataPostSelected } = pageStore
 
 const route = useRoute()
-
 const id = route.params.id
 
 let dataPost = ref("")
+const load = ref(false)
 
+// load.value = true 
 dataPost.value = await dataPostSelected(id)
+   
 let postSelected = ref(pageStore.postSelect)
 
 const closePostId = (() => { 
@@ -73,16 +68,10 @@ const closePostId = (() => {
 })
 
 const br = ((p)=>{
-   
-//     var newContent = p.split(/<br ?\/?>/)[1] ;
-    
-//     let parafIntro = p.split(/<br ?\/?>/)[0]
-  
-//  return parafIntro + "     " + newContent;
-
 return p.split(/<br ?\/?>/)
  .map((line, i) => [line])
 })
+
 </script>
 
 <style lang="css" scoped>
@@ -101,15 +90,22 @@ return p.split(/<br ?\/?>/)
 .header {
     position: relative;
     max-width: 100vw;
-    max-height: 100vh;
+    max-height: 100dvh;
     overflow: hidden;
 }
 .bloc_img {
     position: relative;
-    width:100%;
-    height: 100%;
-  
-    object-fit: cover;
+    max-width:100vw;
+    /* height: 100dvh;  */
+    object-fit: contain;
+   
+}
+.bloc_img > img { 
+    width:auto;
+    max-height: 100dvh;   
+    /* aspect-ratio: auto;
+    aspect-ratio: 16/9; */
+    margin:auto;
 }
 
 .title {
@@ -129,7 +125,7 @@ return p.split(/<br ?\/?>/)
     right: 0;
 
     text-align: center;
-    padding: 5px 10px
+    padding:  10px
 }
 
 .paraf {
@@ -138,6 +134,7 @@ return p.split(/<br ?\/?>/)
     color: white;
     text-align: center;
     padding: 10px 0;
+    user-select: none;
 
 }
 
@@ -162,8 +159,6 @@ return p.split(/<br ?\/?>/)
     object-position: 0 -100px;
 }
 }
-
-
 @media screen and (min-width:992px){
     .paraf{
         margin-top:30px
@@ -175,9 +170,13 @@ return p.split(/<br ?\/?>/)
         column-count: 2;
         gap:30px;
         margin: 30px auto;
-        padding:30px
+        padding:30px;
+        width:70%;
+        line-height: 25px;
     }
 }
+
+ /* ANIM */
 @keyframes fadeIn {
     from {
         opacity: 0;
