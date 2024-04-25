@@ -24,11 +24,13 @@ const { pageName } = dataPageStore
 const route = useRoute()
 let params = route.fullPath.split("/")[1]
 pageName(params)
-let user = ref(true)
+// let user = ref(false)
+let user = useCookie('hy!edf')
 const pageStore = getPageUseStore()
 const { dataPage, dataPostSelected } = pageStore
 let post = ref("")
 let listTheme = ref("")
+
 let postDataPage =
 {
     d: "post",
@@ -39,7 +41,7 @@ const pst = async () => {
     await dataPage(postDataPage) 
         post.value = pageStore.dataP.reverse()
         listTheme.value = themePost(post.value)
-        console.log("POST",post.value);
+        
 }
 pst()
 
@@ -50,9 +52,15 @@ const themeChoise = ((t) => {
     themeActive.value = t
 })
 const deleteToPost = (async(id)=>{
-console.log("ID TO DELETE BLOG PAGE FUNCTION",id);
-await deletePost(id)
+    let confirmation = confirm("Sûr de vouloir effecer ce post ? ")
+    if (confirmation) {
+        
+        await deletePost(id)
+    }
+// console.log("ID TO DELETE BLOG PAGE FUNCTION",id);
 })
+
+
 let load = ref(false)
 watchEffect(() => {
     if (pageStore.loading) {

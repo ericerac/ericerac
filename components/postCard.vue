@@ -10,9 +10,11 @@
                 </div>
                 <div class="bloc_text">
                     <h1>{{ p.title_P }}</h1>
-                    <h2>{{ p.subTitle_P }}</h2>
-
                     <span class="open_Article" @click="openPost(p._id)">Lecture <em>{{ read(p._id) }}</em></span>
+                    <h2>{{ p.subTitle_P }}</h2>
+                    <h3>{{ p.title_1 }}</h3>
+                    <h3>{{ p.subTitle_1 }}</h3>
+                    <p class="p_Display" @click="openPost(p._id)"> {{ p.p_1 }} </p>
                 </div>
 <span v-if="user" class="btnUser" @click="$emit('delete',p._id)">Delete</span>
             </section>
@@ -105,7 +107,14 @@ flex-direction: row;
     transition:.5s;
   
 }
-
+.section_post:hover .info_hover{
+display: inline;
+position: absolute;
+top:0;
+left:0;
+transition: .3s;
+height:auto;
+}
 .bloc_text {
     position: absolute;
     bottom: 50%;
@@ -121,11 +130,17 @@ flex-direction: row;
     color: white;
     padding: 10px;
     gap: 10px;
+    overflow: hidden;
     /* opacity: 0;
     animation-timeline: view(90vh 0px);
     animation: fadeOnTitle .3s ease-in forwards; */
 }
-
+.bloc_text h3{
+    display:none
+}
+.p_Display{
+   display: none;
+}
 .bloc_text h1 {
     font-size: var(--fontSizeTiltle);
 }
@@ -136,12 +151,18 @@ flex-direction: row;
     padding: 1px 5px;
     border-radius: 3px;
     cursor: pointer;
+  
 }
 
 .open_Article:hover {
     background-color: rgba(240, 248, 255, .2);
 }
-
+/* HOVER EFFECT CARD*/ 
+.section_post:hover .bloc_text{
+   
+    height: 100%;
+    transition: .4s;
+}
 @media screen and (min-width:760px) {
     .bloc_text {
         animation: none;
@@ -154,7 +175,10 @@ flex-direction: row;
     flex-direction: row;
     flex-wrap: wrap;
    }
-  
+   .bloc_text {
+        animation: none;
+
+    }
 }
 @media screen and (min-width:992px) {
     .main{
@@ -179,6 +203,20 @@ flex-direction: row;
     background-color: rgba(0, 0, 0, .3);
     color: white;
   
+}
+.bloc_text h3{
+    display:block
+}
+.p_Display{
+    margin: 20px auto;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    overflow: hidden;
+    text-indent: 20px;
+    text-align: justify;
+    height: auto;
+    cursor: pointer;
 }
 }
 @media screen and (min-width:992px) {
@@ -222,5 +260,9 @@ transform: translate(-50%,50%);
     right: 0;
     color:white;
     cursor: pointer;
+}
+/* HOVER EFFECT*/ 
+.info_hover{
+    display:none;
 }
 </style>
