@@ -10,6 +10,15 @@ export default defineEventHandler( async (event)=>{
    const queries = getQuery(event)
     // console.log("REQ PUT-PAGE",await readBody(event));
   const id = queries.idTo
+  const userId = queries.userId
+  console.log("USER ID SERVER",userId);
+  if (userId != process.env.USER_ID) {
+    return {
+      message:"Suppression non autorisée !",
+      status:"error"
+
+    }
+  }
    console.log("ID-->",queries.idTo);
     // let data = await readBody(event)
     //    console.log("USER ID",data.id);

@@ -8,30 +8,27 @@ const config = useRuntimeConfig()
 
 export default defineEventHandler(async (event) => {
 
-  const userId = process.env.USER_ID
+
     let authorization = getHeaders(event)
    
     let token = authorization.authorization.split("Bearer")[1]
 
  console.log("API POST SERVER id",userId);
 
-//  try {
+ const queries = getQuery(event)
+ // console.log("REQ PUT-PAGE",await readBody(event));
 
-// const token = authorization.authorization.split("Bearer")[1]; // récupère le token dans le header
-// console.log("USER ID JWT",token);
-// const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); // décrypte le token
-// console.log("USER ID JWT2",decodedToken);
-// const userIdJwt = decodedToken.userId; // récupère l'id du token
-// if (userId !== userIdJwt) { // compare l'id du token avec l'id utilisateur
-//   return {
-//     message:"erreur Token invalide"
-//   }
-// } 
-// } catch {
-// return{
-//     message:"erreur jwt verify"
-// }
-// }
+const userId = queries.userId
+
+if (userId != process.env.USER_ID) {
+ return {
+   message:"Création non autorisée !",
+   status:"error"
+
+ }
+}
+
+
 
   const MIME_TYPES = {
     "image/jpg": "jpg",

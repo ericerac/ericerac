@@ -34,7 +34,7 @@ let params = route.fullPath.split("/")[1]
 
 // let pageTo = useState("routePage" , () => params)
 
-console.log("PARAMS", params);
+
 const logStore = postUserStore()
 const { userLogin } = logStore
 const dataPageStore = usePageDataStore()
@@ -57,7 +57,7 @@ const login = async () => {
         email: email.value,
         password: password.value,
     }
-    console.log("DATA TO LOGIN", dataLogin);
+    // console.log("DATA TO LOGIN", dataLogin);
     const getUser = await userLogin(dataLogin)
 
 }
@@ -67,9 +67,9 @@ watchEffect(() => {
         return
     }
     if (logStore.user == false || logStore.user == true) {
-        console.log("USER LOG WATCHER");
+        // console.log("USER LOG WATCHER");
         if (logStore.user == false) {
-            console.log("LOGIN USER FALSE");
+            // console.log("LOGIN USER FALSE");
             successLogin.value = true
             errorMessage.value = true
             message.value = logStore.loggingMessage

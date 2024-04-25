@@ -268,12 +268,12 @@
   })
   
   const createPost = async () => {
-    let token = useCookie('token')
+   let token = useCookie('token')
+            let userId = useCookie('2kihuf7')
       console.log("STORE CREATE POST TOKEN VALUE", token.value);
-      if (token.value == undefined) {
-        console.log("STORE CREATE POST TOKEN VALUE", token.value);
-        return navigateTo("/login")
-      }
+      if (token.value == undefined || userId.value == undefined) {               
+                return navigateTo("/login")
+            }
       let accessToken = token.value
     const formData = new FormData()
     if (fileSelected) {
@@ -282,7 +282,7 @@
     for (const [key, value] of Object.entries(data)) {
       formData.append(`${key}`, `${value}`)
     }
-    await useFetch('/api/post', {
+    await useFetch(`/api/post?userId=${userId}`, {
       method: 'POST',
       body: formData,
       headers: {
