@@ -28,8 +28,6 @@ if (userId != process.env.USER_ID) {
  }
 }
 
-
-
   const MIME_TYPES = {
     "image/jpg": "jpg",
     "image/jpeg": "jpg",

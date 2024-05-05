@@ -2,16 +2,16 @@
 	<div class="bloc_nav">
 		<nav class="nav" v-if="openNav" @click="openNav = false">
 
-			<RouterLink @click="openNav = false" to="/" :class="[routePage == 'home' ? 'active' : ' ']">Home</RouterLink>
-			<RouterLink @click="openNav = false" to="/blog" :class="[routePage == 'blog' ? 'active' : ' ']">Blog
+			<RouterLink @click="openNav = false, routePage ='home'" to="/" :class="[routePage == 'home' ? 'active' : ' ']">Home</RouterLink>
+			<RouterLink @click="openNav = false,  routePage ='blog'" to="/blog" :class="[routePage == 'blog' ? 'active' : ' ']">Blog
 			</RouterLink>
-			<RouterLink @click="openNav = false" to="/contact" :class="[routePage == 'contact' ? 'active' : ' ']"> Contact
+			<RouterLink @click="openNav = false, routePage ='contact'" to="/contact" :class="[routePage == 'contact' ? 'active' : ' ']"> Contact
 			</RouterLink>
-			<RouterLink @click="openNav = false"  to="/login" :class="[routePage == 'login' ? 'active' : ' ']">Login</RouterLink>
+			<RouterLink @click="openNav = false, routePage ='login'"  to="/login" :class="[routePage == 'login' ? 'active' : ' ']">Login</RouterLink>
 			
-			<RouterLink @click="openNav = false"  to="/postCreate" >Create</RouterLink>
-			<RouterLink @click="openNav = false" to="/adminBoard" >Admin</RouterLink>
-			<RouterLink @click="openNav = false" to="/" >Logout</RouterLink>
+			<RouterLink @click="openNav = false, routePage ='create'"  to="/postCreate" :class="[routePage == 'create' ? 'active' : ' ']">Create</RouterLink>
+			<RouterLink @click="openNav = false, routePage ='admin'" to="/adminBoard" :class="[routePage == 'admin' ? 'active' : ' ']">Admin</RouterLink>
+			<RouterLink @click="openNav = false " to="/" >Logout</RouterLink>
 
 			<div class="animation start-home"></div>
 		</nav>
@@ -36,9 +36,9 @@ import { storeToRefs } from 'pinia';
 // let userLogged = ref(false)
 // // let userLogged = storeToRefs(logStore.user)
  let openNav = ref(false)
-// const logout = (() => {
-// 	console.log("LOGOUT FUNCTION");
-// })
+const logout = (() => {
+	console.log("LOGOUT FUNCTION");
+})
 
 // watchEffect(() => {
 // 	if (dataPageStore.routePage) {
@@ -78,6 +78,7 @@ a {
 	margin: 5px auto;
 	padding:3px 5px;
 	border-radius: 3px;
+	width: 100%;
 }
 
 a::after {
@@ -89,6 +90,7 @@ a::after {
 	bottom: -2px;
 	left: 0;
 	background-color: #0087ca;
+
 	transform-origin: bottom right;
 	transition: transform 0.25s ease-out;
 }
