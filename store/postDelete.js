@@ -23,7 +23,7 @@ message:"",
             let accessToken = token.value
             // console.log("BODY RECEIVE STORE POST PAGE-->",bodyFormData.entries());
             try {
-                const data = await $fetch(`/api/post?token=${token.value}&idTo=${idTodelete}&userId=${userId}`, {
+                const data = await $fetch(`/api/post?token=${token.value}&idTo=${idTodelete}&userId=${userId.value}`, {
                     method: 'delete',
                     headers: {
                         Authorization: `Bearer ${accessToken}`
