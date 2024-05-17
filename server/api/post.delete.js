@@ -15,13 +15,13 @@ export default defineEventHandler( async (event)=>{
   if (userId != process.env.USER_ID) {
     return {
       message:"Suppression non autorisée !",
-      status:"error"
-
+      status:"error",
     }
-  }
-   console.log("ID-->",queries.idTo);
-    // let data = await readBody(event)
-    //    console.log("USER ID",data.id);
+  }else{
+    let message = {
+      message:"",
+      status:"",
+    }
     // ________ TEST PAGE FINDONE -------//
    
     await Post
@@ -40,19 +40,19 @@ export default defineEventHandler( async (event)=>{
         Post.deleteOne({ _id:id })
           .then((res) => {
             console.log("RESPOONSE FOUND",res);
-            return { 
-              message: 'Post supprimé !'          
-          }
+            message.message = 'Post supprimé !';
+            message.status = "success"
+          //   return { 
+          //     message: 'Post supprimé !'          
+          // }
         })
           .catch(error => ({ error }));
        });
         if(!res){
-         return {
-            message:"Post non trouvée",
-            status:"error"
-         }
+          message.message = 'Post non trouvé !';
+            message.status = "error"
         }
             }).catch((err)=>{return err})
-
-    
+return message
+          } // fin else
 })

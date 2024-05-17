@@ -1,6 +1,8 @@
 <template>
     <div class="bloc_total_blog">
-       
+       <div class="messageDelete" style="color: white;" v-if="message">
+        <h1>{{ message }}</h1>
+       </div>
             <loader v-if="load"/>
        
         <themeSelect :listTheme="listTheme" :themeActive="themeActive" @openTheme="themeChoise" v-if="!load" />
@@ -11,6 +13,7 @@
 
 <script setup>
 import { ref } from "vue";
+import { storeToRefs } from "pinia";
 import { usePageDataStore } from "../store/dataNav"
 import themePost from '../composables/theme'
 import { getPageUseStore } from "../store/postGet"
@@ -53,8 +56,7 @@ const themeChoise = ((t) => {
 })
 const deleteToPost = (async(id)=>{
     let confirmation = confirm("Sûr de vouloir effecer ce post ? ")
-    if (confirmation) {
-        
+    if (confirmation) {   
         await deletePost(id)
     }
 // console.log("ID TO DELETE BLOG PAGE FUNCTION",id);
@@ -71,6 +73,26 @@ watchEffect(() => {
         load.value = false
     }
 });
+
+
+const { message } = storeToRefs(delStore)
+
+watch(
+    () => message,
+    () => {
+    //   console.log('MESSAGE CHANGED',delStore.message)
+      delStatus.value = message
+    },
+  )
+
+// watchEffect( () => {
+//     if (delStore.message) {
+//        console.log("WATCH STATUS",delStore.status);
+//     //    delStatus.value = delStore.message     
+//     }
+//     else {       
+//     }
+// });
 </script>
 
 <style lang="css" scoped>
@@ -103,5 +125,18 @@ watchEffect(() => {
     .bloc_total_blog {
         max-width: 1600px;
     }
+}
+.messageDelete{
+    width:100dvw;
+    height: 100dvh;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(0,0,0,.3);
+    z-index:111
+}
+.messageDelete h1{
+    margin: auto;
 }
 </style>
