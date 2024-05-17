@@ -2,7 +2,7 @@
     <div id="master" class="bloc_card">
         <main class="main">
 
-            <section  id="bloc_to_display" class="section_post" v-for=" (p, index) in posted.posted" :key="index"
+            <section  id="bloc_to_display" class="section_post" v-for=" (p, index) in dataPosted" :key="index"
                 :class="{ row_reverse: modulo(index) == 0 }">
                 <div class="bloc_img">
 
@@ -29,7 +29,7 @@ import Filter from '../utils/filterId';
 import { displayCard } from '../utils/observer'
 
 let posted = defineProps(['posted','user'])
-
+let dataPosted = posted.posted
 onMounted(()=>{
     let target = document.querySelectorAll("#bloc_to_display")
     //  displayCard(target)

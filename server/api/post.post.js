@@ -13,12 +13,12 @@ export default defineEventHandler(async (event) => {
    
     let token = authorization.authorization.split("Bearer")[1]
 
- console.log("API POST SERVER id",userId);
-
- const queries = getQuery(event)
- // console.log("REQ PUT-PAGE",await readBody(event));
-
-const userId = queries.userId
+    
+    const queries = getQuery(event)
+    // console.log("REQ PUT-PAGE",await readBody(event));
+    
+    const userId = queries.userId
+    console.log("API POST SERVER id",userId);
 
 if (userId != process.env.USER_ID) {
  return {

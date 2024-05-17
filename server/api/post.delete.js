@@ -1,58 +1,63 @@
 import Post from "../models/post.ts";
 import fs from "fs";
- import delFileName from "../utils/delFile.js"
+import delFileName from "../utils/delFile.js"
 
 
-export default defineEventHandler( async (event)=>{
-    
-      const authorization = getHeaders(event)
-  //  console.log("AUTH HEADERS",authorization.authorization.split("Bearer")[1]);
-   const queries = getQuery(event)
-    // console.log("REQ PUT-PAGE",await readBody(event));
+export default defineEventHandler(async (event) => {
+
+  const authorization = getHeaders(event)
+
+  const queries = getQuery(event)
+
   const id = queries.idTo
   const userId = queries.userId
-  console.log("USER ID SERVER",userId);
+
+  
+
   if (userId != process.env.USER_ID) {
     return {
-      message:"Suppression non autorisée !",
-      status:"error",
+      message: "Suppression non autorisée !",
+      status: "error",
     }
-  }else{
-    let message = {
-      message:"",
-      status:"",
-    }
-    // ________ TEST PAGE FINDONE -------//
-   
-    await Post
-    .findOne({
-      _id: id,
-    })
-    .then((res)=>{
-        //  console.log("RESPONSE FIND FUNCTION",res);
-        const filename = res.imageUrl.split('/img/')[1]; // Pour récuprer le nom du fichier
-        console.log("FILENAME TO DELETE", filename);
-      // 1-trouver l'URL du fichier 2- sectionner l'Url en deux autour du mot /image/ que contient l'Url
-      // 3- Retourne un tableau de deux éléments, avec [1] on garde le deuxième qui est le nom
-       fs.unlink(`assets/img/${filename}`, () => { // fonction du pakage fs qui supprime le fichier
-          // 1º argument Nom du fichier 2º callback qui supprime l'objet de la BDD
+  } else {
 
-        Post.deleteOne({ _id:id })
-          .then((res) => {
-            console.log("RESPOONSE FOUND",res);
-            message.message = 'Post supprimé !';
-            message.status = "success"
-          //   return { 
-          //     message: 'Post supprimé !'          
-          // }
-        })
-          .catch(error => ({ error }));
-       });
-        if(!res){
-          message.message = 'Post non trouvé !';
-            message.status = "error"
-        }
-            }).catch((err)=>{return err})
-return message
-          } // fin else
+    // ________ TEST PAGE FINDONE -------//
+
+    await Post
+      .findOne({
+        _id: id,
+      })
+      .then((res) => {
+        //  console.log("RESPONSE FIND FUNCTION",res);
+
+        const filename = res.imageUrl.split('/img/')[1]; // Pour récuprer le nom du fichier à éffacer
+        console.log("FILENAME TO DELETE", filename);
+        // 1-trouver l'URL du fichier 2- sectionner l'Url en deux autour du mot /image/ que contient l'Url
+        // 3- Retourne un tableau de deux éléments, avec [1] on garde le deuxième qui est le nom
+
+        const deletFilePost = fs.unlink(`assets/img/${filename}`, (err) => {  // 1º argument Nom du fichier 2º callback qui supprime l'objet de la BDD
+          if (err) {
+            console.log("ERREUR IMAGE", err);
+            return {
+              message: "erreur lors de l'éffacement de l'image",
+              status: "error"
+            }
+          } else {
+            delPost()
+          }
+          // console.log("DELETE FILE RES", res, "ERROR", err);
+        }); // end fs unlink
+       
+      }).catch((err) => { return err })
+
+    } // fin else
+
+    let message = {
+      message: "",
+      status: "success",
+    }
+
+    const delPost = Post.deleteOne({ _id: id })
+ 
+    return delPost
 })

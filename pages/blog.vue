@@ -12,13 +12,14 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref,toRef } from "vue";
 import { storeToRefs } from "pinia";
 import { usePageDataStore } from "../store/dataNav"
 import themePost from '../composables/theme'
 import { getPageUseStore } from "../store/postGet"
 import { useDelPage } from "../store/postDelete"
 import filterByTheme from '../utils/filterByTheme'
+
 
 const delStore = useDelPage()
 const { deletePost } = delStore
@@ -31,7 +32,7 @@ pageName(params)
 let user = useCookie('hy!edf')
 const pageStore = getPageUseStore()
 const { dataPage, dataPostSelected } = pageStore
-let post = ref("")
+let post = toRef("")
 let listTheme = ref("")
 
 let postDataPage =
@@ -54,9 +55,11 @@ const themeChoise = ((t) => {
     post.value = filterByTheme(t.toLowerCase())
     themeActive.value = t
 })
+let idToDelete = ref("")
 const deleteToPost = (async(id)=>{
     let confirmation = confirm("Sûr de vouloir effecer ce post ? ")
     if (confirmation) {   
+        idToDelete.value = id
         await deletePost(id)
     }
 // console.log("ID TO DELETE BLOG PAGE FUNCTION",id);
@@ -75,24 +78,47 @@ watchEffect(() => {
 });
 
 
-const { message } = storeToRefs(delStore)
+const { message, status } = storeToRefs(delStore)
+
+
+if (message === "Post supprimé !") {
+    console.log("POST SUPPRIMË IF",status);
+   } else {
+    
+   }
+watchEffect(() => {
+    if (delStore.status) {
+        // console.log("WATCHER LOADER BLOG PAGE", pageStore.loading);
+      let nd = post.value
+      console.log("POST VALUE SUPP",nd);
+      post.value = nd.filter(x => x._id != idToDelete.value )
+      console.log("POST VALUE SUPP",post.value);
+      
+        console.log("WATCH MESSAGE",delStore.status);
+    }
+    else {
+     
+    }
+   
+});
 
 watch(
     () => message,
     () => {
-    //   console.log('MESSAGE CHANGED',delStore.message)
-      delStatus.value = message
+   
     },
   )
 
-// watchEffect( () => {
-//     if (delStore.message) {
-//        console.log("WATCH STATUS",delStore.status);
-//     //    delStatus.value = delStore.message     
-//     }
-//     else {       
-//     }
-// });
+watch(
+    () => status,
+    () => {
+    if (status == "success") {
+        console.log("STATUS SUCCESFULL");
+    }
+    },
+  )
+
+
 </script>
 
 <style lang="css" scoped>

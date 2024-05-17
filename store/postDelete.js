@@ -11,7 +11,7 @@ message:"",
     },
     actions: {
         async deletePost(id) {
-             console.log("ID TO DELETE STORE FUNCTION",id);
+            //  console.log("ID TO DELETE STORE FUNCTION",id);
             let token = useCookie('token')
             let userId = useCookie('2kihuf7') 
             let idTodelete = id
@@ -30,27 +30,26 @@ message:"",
                     }
                 })
                     .then((res) => {
-                        console.log("RES REQUEST PAGEDELETE STORE", res.message);
-                        if (res.status == "error") {
+                    
+                        if (res.deletedCount == 0) {
                             this.status = "error"
-                            this.message = res.message
-                            setTimeout(() => {
-                                // delStore.$patch({ message: "", status:"" })
+                            this.message = "Post introuvable"
+                            setTimeout(() => {                       
                                 this.status = ""
                             this.message = ""
                                }, 2000);
-                            console.log("RES REQUEST PAGEDELETE STORE", res.message);
+                       
                         }
-                        else{
+                        if (res.deletedCount == 1) {
                             this.status = "success"
-                            this.message = res.message
-                            setTimeout(() => {
-                                // delStore.$patch({ message: "", status:"" })
+                            this.message = "Post supprimé !"
+                            setTimeout(() => {                   
                                 this.status = ""
                             this.message = ""
                                }, 2000);
-                            console.log("RES REQUEST PAGEDELETE STORE", res.message);
+                         
                         }
+                        
                     });
                 // console.log("SUCCES FORM DATA STORE DELETE PAGE");
             } catch (error) {

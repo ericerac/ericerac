@@ -282,7 +282,7 @@ const createPost = async () => {
   for (const [key, value] of Object.entries(data)) {
     formData.append(`${key}`, `${value}`)
   }
-  await useFetch(`/api/post?userId=${userId}`, {
+  await useFetch(`/api/post?userId=${userId.value}`, {
     method: 'POST',
     body: formData,
     headers: {
